@@ -1,0 +1,11 @@
+\.idea
+# Scala Specific
+*.class
+*.log
+*.out
+*.cache
+.cache/
+*.project
+*.classpath
+*.history
+target/

@@ -1,0 +1,32 @@
+//syntax = "proto3";
+//
+//service BedrockQuery {
+//  rpc QueryLLM(LLMRequest) returns (LLMResponse);
+//}
+//
+//message LLMRequest {
+//  string query = 1;
+//  int32 max_tokens = 2;
+//}
+//
+//message LLMResponse {
+//  string response = 1;
+//}
+syntax = "proto3";
+
+package example.grpc;
+
+service QueryService {
+  // Sends a request to the Lambda via API Gateway
+  rpc triggerQuery (QueryRequest) returns (QueryResponse);
+}
+
+// Request structure
+message QueryRequest {
+  string metadata = 1; // Optional metadata, can be empty
+}
+
+// Response structure
+message QueryResponse {
+  string result = 1; // The Lambda's JSON response
+}
