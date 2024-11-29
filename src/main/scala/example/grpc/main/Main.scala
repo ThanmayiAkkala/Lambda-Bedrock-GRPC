@@ -177,13 +177,13 @@ class QueryServiceImpl()(implicit system: ActorSystem, ec: ExecutionContext) ext
   private val apiGatewayUrl = "https://udqasoaqmk.execute-api.us-east-2.amazonaws.com/prod/query"
 
   override def triggerQuery(request: QueryRequest): Future[QueryResponse] = {
-    logger.info("Received gRPC request: {}", request)
+    logger.info("Received gRPC request with metadata (query): {}", request.metadata)
 
     // Build the HTTP request for the API Gateway
     val httpRequest = HttpRequest(
       method = HttpMethods.POST,
       uri = apiGatewayUrl,
-      entity = HttpEntity(ContentTypes.`application/json`, s"""{"metadata": "${request.metadata}"}""")
+      entity = HttpEntity(ContentTypes.`application/json`, s"""{"query": "${request.metadata}"}""") // Send query dynamically
     )
 
     logger.info("Sending HTTP request to API Gateway: {}", httpRequest)
@@ -194,7 +194,7 @@ class QueryServiceImpl()(implicit system: ActorSystem, ec: ExecutionContext) ext
 
       response.entity.dataBytes.runFold("")(_ + _.utf8String).map { body =>
         logger.info("Processed HTTP response body: {}", body)
-        QueryResponse(result = body)
+        QueryResponse(result = body) // Return the response body
       }
     }.recover {
       case ex: Exception =>
@@ -245,8 +245,11 @@ object Main {
 
     val stub = QueryServiceGrpc.stub(channel)
 
-    // Send a request and handle the response
-    val responseFuture: Future[QueryResponse] = stub.triggerQuery(QueryRequest(metadata = "Test metadata"))
+    // Send a request with a dynamic query
+    val query = "Why do cats purr?" // Replace with your dynamic query
+    logger.info("Sending gRPC request with query: {}", query)
+
+    val responseFuture: Future[QueryResponse] = stub.triggerQuery(QueryRequest(metadata = query))
 
     responseFuture.onComplete {
       case Success(response) =>
