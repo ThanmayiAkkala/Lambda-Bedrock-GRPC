@@ -25,7 +25,9 @@ lazy val root = (project in file("."))
       "io.grpc" % "grpc-stub" % "1.56.0",
       "io.github.ollama4j" % "ollama4j" % "1.0.79",
     ),
-    Compile / PB.targets := Seq(
+    mainClass in Compile := Some("example.grpc.main.Main")
+,
+      Compile / PB.targets := Seq(
       scalapb.gen() -> (Compile / sourceManaged).value
     ),
     Compile / PB.protoSources ++= Seq(
