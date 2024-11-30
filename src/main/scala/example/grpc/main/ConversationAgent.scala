@@ -62,7 +62,7 @@ object ConversationAgent {
 
   def runConversation(initialQuery: String): Unit = {
     val ollamaHost = "http://localhost:11434"
-    val ollamaModel = "llama3:latest" // Update the model as needed
+    val ollamaModel = "llama3.2:1b" // Update the model as needed
     val ollamaTimeout = 500
 
     val ollamaAPI = new OllamaAPI(ollamaHost)
