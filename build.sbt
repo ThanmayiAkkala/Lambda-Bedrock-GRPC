@@ -16,13 +16,14 @@ lazy val root = (project in file("."))
       "com.typesafe.akka" %% "akka-http" % "10.2.10",
       "com.typesafe.akka" %% "akka-stream" % "2.6.19",
       "io.spray" %% "spray-json" % "1.3.6",
-"com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapb.compiler.Version.scalapbVersion, // Protobuf + gRPC
+      "com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapb.compiler.Version.scalapbVersion, // Protobuf + gRPC
       "com.typesafe" % "config" % "1.4.1", // Config File Support
       "io.grpc" % "grpc-netty" % "1.44.1",
       "io.grpc" % "grpc-netty-shaded" % "1.56.0",
       // Ensure this version or newer
       "io.grpc" % "grpc-protobuf" % "1.56.0",
-      "io.grpc" % "grpc-stub" % "1.56.0"
+      "io.grpc" % "grpc-stub" % "1.56.0",
+      "io.github.ollama4j" % "ollama4j" % "1.0.79",
     ),
     Compile / PB.targets := Seq(
       scalapb.gen() -> (Compile / sourceManaged).value
