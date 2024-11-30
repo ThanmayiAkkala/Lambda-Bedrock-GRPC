@@ -376,7 +376,7 @@ object Main {
         logger.error("Error occurred while calling gRPC service: {}", exception.getMessage)
     }
 
-    // Allow time for the response to be logged before shutting down
+    // Allow time for the response to be logged before shutting downhh
     Thread.sleep(5000)
     channel.shutdownNow()
   }
