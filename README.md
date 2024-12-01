@@ -165,6 +165,11 @@ and then bedrock replies:
 
 and the process goes on until termination condition.
 
+Implementation on EC2:
+
+![image](https://github.com/user-attachments/assets/270ae5d6-e07e-4877-8576-77d8d667beef)
+
+
 
 
 
