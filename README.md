@@ -5,8 +5,7 @@
 
 **UIN**: 650556907
 
-**Video Link**: https://youtu.be/wxtleucxmeU
-(Would suggest to watch in 1.5x or even 2x :-) )
+**Video Link**: https://youtu.be/Sf0Z1QxdJRg
 
 ## Overview
 This project implements a conversational agent using gRPC and a microservices architecture. The solution consists of a gRPC server that processes user queries, communicates with an AWS Lambda function via API Gateway, and generates responses based on an integrated Large Language Model (LLM). Additionally, the project includes a conversational client that interacts with the server and uses the Ollama API to generate follow-up queries, creating a seamless conversational experience. The implementation supports local testing and AWS deployment, utilizing modern frameworks such as Akka HTTP and Spray JSON for HTTP handling, ScalaPB for Protobuf support, and Ollama for local LLM interactions. Comprehensive logging, retry mechanisms, and configurable settings ensure robust performance and flexibility in various deployment environments.
@@ -92,21 +91,47 @@ The gRPC server communicates with an AWS Lambda function via an API Gateway. Fol
 To run the gRPC server, use the following command:
   sbt compile
 
-Alternatively, you can directly specify the server entry point:
+Alternatively, you can directly specify the server entry point, this is general command you can also put query with it:
 
+```bash
 sbt "runMain example.grpc.main.Main"
+```
 This starts the server on localhost:50051, where it listens for incoming queries. Ensure this step is completed before running the conversational agent or client, as the agent depends on the server for communication.
 #### 5. Run the Ollama-Based Conversational Agent
 
-After starting the gRPC server, execute the conversational agent with an initial query. For example:
-
-sbt "runMain example.grpc.main.ConversationAgent 'Why do cats purr?'"
+After running the main the gRPC server, execute the conversational agent with an initial query.
 
 The conversational agent will:
 
 Send the query to the gRPC server.
 Process the server's response using Ollama to generate the next query.
 Continue the conversation loop until the termination condition (e.g., receiving "END") is met.
+
+### Deploying on EC2
+Create an EC2 instance and then connect it using ec2 connecting instance
+#### Running the Application
+
+##### **Before Logging In**
+Upload the compiled JAR file to your EC2 instance using the `scp` command:
+
+```bash
+scp -i "D:\Downloads\huhu.pem" "D:\IdeaProjects\gRPC_project\target\scala-2.13\Bedrock-GRPC-Client-assembly-0.1.0-SNAPSHOT.jar" ec2-user@ec2-18-223-196-96.us-east-2.compute.amazonaws.com:/home/ec2-user/
+```
+Logging In to EC2
+Log in to your EC2 instance using the ssh command:
+
+```bash
+ssh -i "D:\Downloads\huhu.pem" ec2-user@ec2-18-223-196-96.us-east-2.compute.amazonaws.com
+```
+
+Running the gRPC Server
+Start the gRPC server on the EC2 instance using the java command:
+
+```bash
+Copy code
+java -cp Bedrock-GRPC-Client-assembly-0.1.0-SNAPSHOT.jar example.grpc.main.Main
+```
+
 ### Scala Unit/Integration Tests:
 The tests are under in src/tests/scala. These can be run using sbt test at once or sbt.
 It can be run using the scala test or by passing the files individually like: sbt "testOnly *Word2VecMapperTest"
