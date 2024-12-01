@@ -1,17 +1,3 @@
-//syntax = "proto3";
-//
-//service BedrockQuery {
-//  rpc QueryLLM(LLMRequest) returns (LLMResponse);
-//}
-//
-//message LLMRequest {
-//  string query = 1;
-//  int32 max_tokens = 2;
-//}
-//
-//message LLMResponse {
-//  string response = 1;
-//}
 syntax = "proto3";
 
 package example.grpc;
