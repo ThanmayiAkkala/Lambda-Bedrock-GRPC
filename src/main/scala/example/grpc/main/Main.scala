@@ -14,7 +14,7 @@ import example.grpc.service.QueryRequest
 import example.grpc.service.QueryResponse
 
 
-// Implementation of the QueryService
+// Implementation of the QueryServicegg
 class QueryServiceImpl()(implicit system: ActorSystem, ec: ExecutionContext) extends QueryServiceGrpc.QueryService {
   private val logger = LoggerFactory.getLogger(classOf[QueryServiceImpl])
   implicit val materializer = SystemMaterializer(system).materializer
