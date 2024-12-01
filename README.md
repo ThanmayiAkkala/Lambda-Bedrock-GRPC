@@ -18,6 +18,7 @@ This project implements a conversational agent using gRPC and a microservices ar
 - **ConversationAgent.scala**: Implements the conversational client that interacts with the gRPC server. It uses the Ollama API for generating follow-up queries based on server responses and facilitates automated query-response flows.
 - **Lambda Function**: Defined in the AWS environment, it processes queries by invoking the Amazon Bedrock LLM to generate responses and returns them via the API Gateway.
 - **Configuration Files**: Includes `application.conf`, which specifies the API Gateway URL, gRPC port, and Ollama LLM configurations.
+- **Service.proto**: Used to generate protobuf
 
 
 ### Build Instructions
